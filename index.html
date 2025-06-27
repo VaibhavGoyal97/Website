@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script type='text/javascript' nonce='Lpqk7Ef1I482Wn3G+u5rWg==' src='https://file.notion.so/NOIfaYHRapCUtZz8Tnix2hR_dXiTEKpuRNp8d4c8B2boQdgTiPre8ROzV0vJKJi_jHNYznRUBBnHMnjEpkIVNw=='></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Vaibhav Goyal | Interactive Infographic CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN for social media icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F8F8; /* New very light grey-blue background */
+            color: #333333;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem; /* More rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02); /* Softer, more diffuse shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        /* New Palette: Professional Blues with Warm Accent */
+        /* Primary Blue: #0F4C81 (Deep Ocean Blue) */
+        /* Secondary Teal: #397367 (Deep Teal) */
+        /* Tertiary Sky Blue: #A8D0E6 (Sky Blue) */
+        /* Accent Warm: #F28C2F (Warm Orange/Gold) */
+        /* Neutral Background: #F8F8F8 (Very light grey) */
+        /* Text: #333333 */
+
+        .color-primary-deep-blue { color: #0F4C81; }
+        .color-secondary-teal { color: #397367; }
+        .color-tertiary-sky-blue { color: #A8D0E6; }
+        .color-accent-warm { color: #F28C2F; }
+
+        .bg-primary-deep-blue { background-color: #0F4C81; }
+        .bg-secondary-teal { background-color: #397367; }
+        .bg-tertiary-sky-blue { background-color: #A8D0E6; }
+        .bg-accent-warm { background-color: #F28C2F; }
+        .bg-subtle-blue-tint { background-color: rgba(168, 208, 230, 0.2); } /* For academic achievement cards */
+
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem; /* Adjusted for alignment */
+            top: 1.25rem;
+            bottom: -1.25rem;
+            width: 2px;
+            background-color: #E0E0E0; /* Lighter neutral for timeline line */
+            transform: translateX(-50%);
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 0.75rem; /* Adjusted for alignment */
+            top: 1.25rem;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 9999px;
+            border: 2px solid white;
+            transform: translateX(-50%);
+        }
+        .language-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #E0E0E0;
+            position: relative;
+        }
+        .language-level {
+            height: 100%;
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .header-bg {
+            background-color: #ffffff; /* White header background */
+            padding: 2rem;
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.02);
+        }
+        /* Guiding Philosophy bubble styles */
+        .guiding-philosophy-bubble {
+            width: 8rem; /* Consistent smaller size for better fit */
+            height: 8rem; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-align: center; /* Center text inside bubble */
+            font-size: 0.8rem; /* Slightly smaller text for fit */
+            padding: 0.8rem; /* Adjusted padding */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            color: white;
+            flex-shrink: 0; 
+        }
+        .guiding-philosophy-text {
+            font-size: 0.7rem; /* text-xs */
+            max-width: 8rem; 
+            margin-top: 0.5rem;
+            line-height: 1.2; /* Tighter line height */
+            min-height: 2.2rem; /* Ensure consistent height */
+            text-align: center; /* Explicitly center align this text */
+        }
+        /* Arrows as direct children in the flex container */
+        .guiding-philosophy-arrow {
+            font-size: 2rem; /* Smaller arrows */
+            font-weight: 700;
+            color: #F28C2F; /* Accent Warm */
+            margin: 0 0.5rem; /* Spacing between bubbles and arrows */
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+
+        /* Guiding Philosophy Container */
+        .guiding-philosophy-flow-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping */
+            justify-content: center;
+            gap: 1rem; /* Smaller gap between items */
+            align-items: center; /* Vertically center all items including arrows */
+        }
+        .guiding-philosophy-step {
+            display: flex;
+            align-items: center; /* Crucial for vertical centering of items in the step */
+        }
+
+        /* Responsive adjustments for Guiding Philosophy */
+        @media (max-width: 767px) { /* For mobile, ensure vertical flow and correct arrow orientation */
+            .guiding-philosophy-flow-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .guiding-philosophy-step {
+                flex-direction: column;
+                margin-bottom: 1rem; /* Space between steps vertically */
+            }
+            .guiding-philosophy-arrow {
+                transform: rotate(90deg); /* Vertical arrow */
+                margin: 0.5rem 0; /* Vertical margin for arrows */
+            }
+            .guiding-philosophy-step:last-child .guiding-philosophy-arrow {
+                display: none; /* Hide arrow for last item in vertical stack */
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) { /* Tablet view */
+            .guiding-philosophy-bubble {
+                width: 7rem;
+                height: 7rem;
+                font-size: 0.75rem;
+                padding: 0.5rem;
+            }
+            .guiding-philosophy-text {
+                font-size: 0.65rem;
+                max-width: 7rem;
+                min-height: 2rem;
+            }
+            .guiding-philosophy-arrow {
+                font-size: 1.8rem;
+                margin: 0 0.15rem;
+            }
+            .guiding-philosophy-flow-container {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Palette: Professional Blues with Warm Accent -->
+    <!-- Confirmed: NO Mermaid JS and NO SVG used -->
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12 md:mb-16 header-bg">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-2 color-primary-deep-blue">Vaibhav Goyal</h1>
+            <h2 class="text-xl md:text-2xl font-semibold color-secondary-teal mb-6">The Strategic Generalist: Bridging Vision & Execution</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="card p-4 text-center">
+                    <p class="text-3xl font-bold color-accent-warm">4</p>
+                    <p class="text-sm text-gray-600">Industries</p>
+                </div>
+                <div class="card p-4 text-center">
+                    <p class="text-3xl font-bold color-accent-warm">3</p>
+                    <p class="text-sm text-gray-600">Continents</p>
+                </div>
+                <div class="card p-4 text-center">
+                    <p class="text-3xl font-bold color-accent-warm">15+</p>
+                    <p class="text-sm text-gray-600">Countries Visited</p>
+                </div>
+                 <div class="card p-4 text-center">
+                    <p class="text-3xl font-bold color-accent-warm">4</p>
+                    <p class="text-sm text-gray-600">Languages</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Guiding Philosophy: Full Width Section (Moved to top) -->
+            <section class="card p-6 md:p-8 col-span-full">
+                <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">The Guiding Philosophy: A Journey of Growth</h3>
+                 <p class="text-gray-600 mb-8">My professional path is a tapestry woven from diverse experiences and continuous learning. Each step, from early challenges to advanced education, has shaped my holistic approach, driving my keen interest in emerging fields like AI and future ventures.</p>
+                <div class="guiding-philosophy-flow-container overflow-x-auto pb-4"> 
+                    <div class="guiding-philosophy-step">
+                        <div class="guiding-philosophy-item-wrapper">
+                            <div class="guiding-philosophy-bubble bg-secondary-teal">Innate Curiosity</div>
+                            <p class="guiding-philosophy-text text-gray-600">A drive to explore & solve.</p>
+                        </div>
+                        <span class="guiding-philosophy-arrow">&rarr;</span>
+                    </div>
+                    <div class="guiding-philosophy-step">
+                       <div class="guiding-philosophy-item-wrapper">
+                            <div class="guiding-philosophy-bubble bg-secondary-teal">Early Learnings</div>
+                            <p class="guiding-philosophy-text text-gray-600">Foundational rigor from early challenges.</p>
+                       </div>
+                       <span class="guiding-philosophy-arrow">&rarr;</span>
+                    </div>
+                    <div class="guiding-philosophy-step">
+                        <div class="guiding-philosophy-item-wrapper">
+                            <div class="guiding-philosophy-bubble bg-secondary-teal">First Job Impact</div>
+                            <p class="guiding-philosophy-text text-gray-600">Real-world application, attention to detail.</p>
+                        </div>
+                        <span class="guiding-philosophy-arrow">&rarr;</span>
+                    </div>
+                    <div class="guiding-philosophy-step">
+                       <div class="guiding-philosophy-item-wrapper">
+                            <div class="guiding-philosophy-bubble bg-secondary-teal">Global MBA</div>
+                            <p class="guiding-philosophy-text text-gray-600">Strategic perspective, diverse markets.</p>
+                       </div>
+                       <span class="guiding-philosophy-arrow">&rarr;</span>
+                    </div>
+                    <div class="guiding-philosophy-step">
+                       <div class="guiding-philosophy-item-wrapper">
+                            <div class="guiding-philosophy-bubble bg-secondary-teal">Telecom Experience</div>
+                            <p class="guiding-philosophy-text text-gray-600">Large-scale coordination & agile transition.</p>
+                       </div>
+                       <span class="guiding-philosophy-arrow">&rarr;</span>
+                    </div>
+                    <div class="guiding-philosophy-step">
+                       <div class="guiding-philosophy-item-wrapper">
+                            <div class="guiding-philosophy-bubble bg-accent-warm">AI & Future-Focused Entrepreneurship</div>
+                            <p class="guiding-philosophy-text text-gray-600">Continuous learning for future ventures.</p>
+                       </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Left Column for remaining content -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Career Journey Timeline -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Career Journey: From Foundational Rigor to Strategic Leadership</h3>
+                    <p class="text-gray-600 mb-8">My career has been a deliberate progression from mastering foundational details in audit to steering high-level strategic initiatives in the COO's office. Each role was a building block, adding new layers of operational, financial, and strategic expertise.</p>
+                    <div class="relative"> 
+                        <div class="timeline-item relative pl-12 pb-8">
+                            <div class="timeline-dot bg-accent-warm"></div>
+                            <p class="font-semibold text-gray-500 text-sm">Jun 2024 - Present</p>
+                            <h4 class="font-bold text-lg">Associate, COO's Office</h4>
+                            <p class="font-semibold text-gray-700">Xalts, Bengaluru</p>
+                            <p class="text-sm mt-2 text-gray-600">Driving strategic decisions on pricing, operations, and GTM. Reduced ATS costs by 70% and optimized processes, shaping rapid business growth in a dynamic FinTech startup.</p>
+                        </div>
+                        <div class="timeline-item relative pl-12 pb-8">
+                            <div class="timeline-dot bg-accent-warm"></div>
+                            <p class="font-semibold text-gray-500 text-sm">Jun 2023 - Sep 2023</p>
+                            <h4 class="font-bold text-lg">MBA Intern</h4>
+                            <p class="font-semibold text-gray-700">Telekom Strategy Consulting, Bonn</p>
+                            <p class="text-sm mt-2 text-gray-600">Collaborated with 23 stakeholders to transition demands to agile models and revamped sales channel incentives for a global telecom leader.</p>
+                        </div>
+                        <div class="timeline-item relative pl-12 pb-8">
+                             <div class="timeline-dot bg-accent-warm"></div>
+                            <p class="font-semibold text-gray-500 text-sm">Oct 2020 - Aug 2022</p>
+                            <h4 class="font-bold text-lg">General Manager, CEO's Office</h4>
+                            <p class="font-semibold text-gray-700">Jai Guru Dev Rice & General Mills, Hodal</p>
+                            <p class="text-sm mt-2 text-gray-600">Led a 40-person team, spearheading supply chain automation that cut man-hours by 20% and digitalized operations, saving costs and increasing plant efficiency by 15%.</p>
+                        </div>
+                        <div class="timeline-item relative pl-12">
+                             <div class="timeline-dot bg-accent-warm"></div>
+                            <p class="font-semibold text-gray-500 text-sm">Aug 2018 - Oct 2020</p>
+                            <h4 class="font-bold text-lg">Lead Associate, Audit</h4>
+                            <p class="font-sm mt-2 text-gray-600">Ernst & Young LLP, Gurgaon</p>
+                            <p class="text-sm mt-2 text-gray-600">Built a foundational understanding of financial and operational integrity. Mentored 15+ associates, increasing team efficiency by 20%.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Impact Metrics -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Quantifiable Impact</h3>
+                    <p class="text-gray-600 mb-6">Beyond strategy, my focus is on delivering tangible results. This chart highlights key achievements where I've driven cost savings, efficiency gains, and direct financial impact through process optimization and strategic initiatives.</p>
+                    <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- Leadership & Team Influence -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Leadership & Team Influence</h3>
+                    <p class="text-gray-600 mb-6">Driving results requires effective leadership and mentorship. This section highlights the scale of teams I've directly managed and influenced, fostering growth and efficiency across various organizations.</p>
+                    <div class="chart-container">
+                        <canvas id="leadershipChart"></canvas>
+                    </div>
+                </section>
+                
+                <!-- Academic Excellence & Leadership (Moved and Horizontal) -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Academic Excellence & Leadership</h3>
+                    <p class="text-gray-600 mb-6">My academic career was marked by strong performance and active leadership, contributing to both campus and community initiatives.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4"> <!-- Changed for more horizontal alignment -->
+                        <div class="bg-subtle-blue-tint p-4 rounded-lg flex flex-col items-center text-center space-y-2">
+                            <span class="text-3xl color-secondary-teal">🏆</span>
+                            <p class="font-bold text-sm">Student of the Year</p>
+                            <p class="text-xs text-gray-600">University of Delhi</p>
+                        </div>
+                        <div class="bg-subtle-blue-tint p-4 rounded-lg flex flex-col items-center text-center space-y-2">
+                            <span class="text-3xl color-secondary-teal">🤝</span>
+                            <p class="font-bold text-sm">Pioneered Competitions</p>
+                            <p class="text-xs text-gray-600">Business Plan & Youth Conclave</p>
+                        </div>
+                        <div class="bg-subtle-blue-tint p-4 rounded-lg flex flex-col items-center text-center space-y-2">
+                            <span class="text-3xl color-secondary-teal">🥇</span>
+                            <div>
+                                <p class="font-bold text-sm">Academic Honors</p>
+                                <p class="text-xs text-gray-600">Multiple scholarships & prizes</p>
+                            </div>
+                        </div>
+                        <div class="bg-subtle-blue-tint p-4 rounded-lg flex flex-col items-center text-center space-y-2">
+                            <span class="text-3xl color-secondary-teal">🗣️</span>
+                            <p class="font-bold text-sm">MBA Leadership Roles</p>
+                            <p class="text-xs text-gray-600">Ambassador, Club VP/Director</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Global Education (Moved) -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Global Education</h3>
+                    <p class="text-gray-600 mb-6">My academic journey across three continents has provided a diverse, global perspective on business, strategy, and innovation.</p>
+                     <div class="space-y-6">
+                        <div>
+                            <p class="font-bold">UChicago Booth School of Business</p>
+                            <p class="text-sm text-gray-500">MBA (Exchange) - Strategic Management, Entrepreneurship</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-tertiary-sky-blue h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold">SDA Bocconi School of Management</p>
+                            <p class="text-sm text-gray-500">Master of Business Administration - Innovation & Strategy, Private Equity, Entrepreneurship</p>
+                             <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-secondary-teal h-2.5 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold">University of Delhi</p>
+                            <p class="text-sm text-gray-500">Bachelor of Commerce - Accountancy, Finance, General Management</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                <div class="bg-accent-warm h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Language Proficiency -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Language Proficiency</h3>
+                    <p class="text-gray-600 mb-6">My multilingual abilities facilitate communication and cultural understanding in diverse environments.</p>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-bold text-sm">English</p>
+                            <div class="language-bar">
+                                <div class="language-level bg-accent-warm" style="width: 100%;"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 text-right">Fluent</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">Hindi</p>
+                            <div class="language-bar">
+                                <div class="language-level bg-secondary-teal" style="width: 100%;"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 text-right">Native</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">Italian</p>
+                            <div class="language-bar">
+                                <div class="language-level bg-tertiary-sky-blue" style="width: 40%;"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 text-right">Basic</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">German</p>
+                            <div class="language-bar">
+                                <div class="language-level bg-accent-warm" style="width: 40%;"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 text-right">Basic</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column for remaining content -->
+            <div class="lg:col-span-1 space-y-8">
+                <!-- Global Footprint -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Global Footprint & Cultural Acumen</h3>
+                    <p class="text-gray-600 mb-6">My experiences extend beyond borders, having lived and worked across continents and embraced diverse cultures.</p>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🇮🇳</span>
+                            <div>
+                                <p class="font-semibold color-primary-deep-blue">India</p>
+                                <p class="text-sm text-gray-600">Native roots, foundational education, initial career.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🇮🇹</span>
+                            <div>
+                                <p class="font-semibold color-primary-deep-blue">Italy</p>
+                                <p class="text-sm text-gray-600">MBA studies at SDA Bocconi.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🇩🇪</span>
+                            <div>
+                                <p class="font-semibold color-primary-deep-blue">Germany</p>
+                                <p class="text-sm text-gray-600">MBA Internship at Telekom Strategy Consulting.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-3xl">🇺🇸</span>
+                            <div>
+                                <p class="font-semibold color-primary-deep-blue">United States</p>
+                                <p class="text-sm text-gray-600">MBA Exchange at UChicago Booth.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 mt-4">
+                            <span class="text-2xl color-primary-deep-blue">✈️</span>
+                            <div>
+                                <p class="font-semibold">Visited 15+ Countries:</p>
+                                <p class="text-sm text-gray-600">Broad exposure to global markets & customs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interdisciplinary Industry Exposure -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Interdisciplinary Industry Exposure</h3>
+                    <p class="text-gray-600 mb-6">My career has provided deep insights into various sectors, from established industries to dynamic startups.</p>
+                    <ul class="list-none space-y-3">
+                        <li class="flex items-center space-x-2">
+                            <span class="text-xl color-secondary-teal">💡</span>
+                            <p class="font-semibold">FinTech & Digital Treasury (Startup)</p>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="text-xl color-secondary-teal">📞</span>
+                            <p class="font-semibold">Global Telecommunications</p>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="text-xl color-secondary-teal">🌾</span>
+                            <p class="font-semibold">Food Processing & Distribution</p>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="text-xl color-secondary-teal">📊</span>
+                            <p class="font-semibold">Audit & Professional Services</p>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Strategic Influence & Project Scale -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Strategic Influence & Project Scale</h3>
+                    <p class="text-gray-600 mb-6">My career demonstrates a consistent ability to navigate complex organizational landscapes, influencing diverse stakeholders and driving large-scale initiatives.</p>
+                    <ul class="list-none space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <span class="text-xl color-accent-warm mt-1">📈</span>
+                            <div>
+                                <p class="font-semibold">C-Suite & Executive Alignment:</p>
+                                <p class="text-sm text-gray-600">Collaborated with C-Suite at Xalts to shape strategic decisions (pricing, GTM, operations).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-xl color-accent-warm mt-1">🌐</span>
+                            <div>
+                                <p class="font-semibold">Large-Scale Cross-Company Coordination:</p>
+                                <p class="text-sm text-gray-600">Coordinated with 23 stakeholders & 10 national companies at Telekom to transition demands to agile models and chart a 2027 target picture.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-xl color-accent-warm mt-1">🔄</span>
+                            <div>
+                                <p class="font-semibold">Transformative Process & Policy Development:</p>
+                                <p class="text-sm text-gray-600">Developed 25 data-driven sales incentive policies (Telekom) and spearheaded end-to-end supply chain automation (Jai Guru Dev).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-xl color-accent-warm mt-1">💰</span>
+                            <div>
+                                <p class="font-semibold">Financial Oversight & Health:</p>
+                                <p class="text-sm text-gray-600">Ensured financial integrity and compliance through meticulous audit practices, identifying and addressing discrepancies (EY Audit).</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Core Competencies -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Core Competencies</h3>
+                    <p class="text-gray-600 mb-6">My competencies span strategic foresight, entrepreneurial drive, and operational excellence. This blend enables me to navigate complex challenges, drive innovation, and rapidly adapt to emerging technologies, including AI.</p>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </section>
+                
+                <!-- Community Engagement -->
+                <section class="card p-6 md:p-8">
+                    <h3 class="text-2xl font-bold mb-6 color-primary-deep-blue">Community Engagement</h3>
+                    <p class="text-gray-600 mb-6">Beyond professional pursuits, I am committed to contributing to society and fostering positive change.</p>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl color-primary-deep-blue">❤️</span>
+                        <div>
+                            <p class="font-semibold">Volunteer at "UMEED: A Drop of Hope":</p>
+                            <p class="text-sm text-gray-600">Educating children in Delhi, India.</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center space-x-3">
+                         <span class="text-2xl color-primary-deep-blue">🌍</span>
+                        <div>
+                            <p class="font-semibold">Fascination for Cultures:</p>
+                            <p class="text-sm text-gray-600">Personal interest in exploring diverse communities.</p>
+                        </div>
+                    </div>
+                </section>
+
+                 <section class="card p-6 md:p-8 text-center">
+                    <h3 class="text-2xl font-bold mb-4 color-primary-deep-blue">Let's Connect</h3>
+                    <p class="text-gray-600 mb-4">I'm always open to discussing new challenges and opportunities.</p>
+                    <div class="flex flex-col md:flex-row md:justify-center items-center gap-4">
+                        <a href="mailto:vaibhavgoyal728@gmail.com" class="flex items-center justify-center bg-primary-deep-blue text-white w-14 h-14 rounded-lg hover:opacity-90 transition-opacity">
+                            <i data-lucide="mail" class="w-7 h-7"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/vaibhav-goyal7/" target="_blank" class="flex items-center justify-center bg-primary-deep-blue text-white w-14 h-14 rounded-lg hover:opacity-90 transition-opacity">
+                            <i data-lucide="linkedin" class="w-7 h-7"></i>
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
+        const tooltipPlugin = {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+        
+        const wrapLabel = (label, maxLength = 16) => {
+            if (label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        };
+        
+        // Skills Chart (Radar)
+        const skillsCtx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(skillsCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Strategic Management', 'Entrepreneurship', 'Operations', 'Leadership', ['Problem', 'Solving'], 'Finance'],
+                datasets: [{
+                    label: 'Competency Level',
+                    data: [90, 85, 95, 80, 95, 75],
+                    backgroundColor: 'rgba(57, 115, 103, 0.2)', /* Deep Teal with opacity */
+                    borderColor: '#397367', /* Deep Teal */
+                    borderWidth: 2,
+                    pointBackgroundColor: '#397367',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#397367'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        pointLabels: { font: { size: 12 } },
+                        ticks: {
+                            display: false,
+                            stepSize: 25
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: tooltipPlugin
+            }
+        });
+
+        // Impact Chart (Horizontal Bar)
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        const impactLabels = [
+            'ATS Cost Reduction',
+            'Office Relocation Savings',
+            'Team Efficiency Increase (Mentorship)',
+            'Supply Chain Man-Hours Reduction',
+            'Plant Operating Efficiency Increase'
+        ];
+        new Chart(impactCtx, {
+            type: 'bar',
+            data: {
+                labels: impactLabels.map(label => wrapLabel(label)),
+                datasets: [{
+                    label: 'Impact (%)',
+                    data: [70, 75, 20, 20, 15],
+                    backgroundColor: [
+                        '#0F4C81', /* Deep Ocean Blue */
+                        '#397367', /* Deep Teal */
+                        '#A8D0E6', /* Sky Blue */
+                        '#F28C2F', /* Warm Orange Accent */
+                        '#0F4C81'  /* Deep Ocean Blue */
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 0)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        },
+                         ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    y: {
+                         grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                     ...tooltipPlugin,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Leadership Chart (Vertical Bar)
+        const leadershipCtx = document.getElementById('leadershipChart').getContext('2d');
+        const leadershipLabels = [
+            'Jai Guru Dev (Team Lead)',
+            'Ernst & Young (Mentored)',
+            'Xalts (Managed)'
+        ];
+        new Chart(leadershipCtx, {
+            type: 'bar',
+            data: {
+                labels: leadershipLabels.map(label => wrapLabel(label)),
+                datasets: [{
+                    label: 'Number of People',
+                    data: [40, 15, 3],
+                    backgroundColor: [
+                        '#F28C2F', /* Warm Orange Accent */
+                        '#0F4C81', /* Deep Ocean Blue */
+                        '#397367'  /* Deep Teal */
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 0)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            stepSize: 10
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
